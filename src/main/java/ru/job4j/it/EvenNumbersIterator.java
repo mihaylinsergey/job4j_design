@@ -15,7 +15,15 @@ public class EvenNumbersIterator implements Iterator<Integer> {
 
     @Override
     public boolean hasNext() {
-        return check() == 0;
+        boolean rsl = false;
+        for (int i = index; i < data.length; i++) {
+            if (data[i] % 2 == 0) {
+                index = i;
+                rsl = true;
+                break;
+            }
+        }
+        return rsl;
     }
 
     @Override
@@ -25,25 +33,4 @@ public class EvenNumbersIterator implements Iterator<Integer> {
         }
         return data[index++];
     }
-
-    private Integer check() {
-        int num = -1;
-        for (int i = index; i < data.length; i++) {
-            if (data[i] % 2 == 0) {
-                index = i;
-                num++;
-                break;
-            }
-        }
-        return num;
-    }
-
-    @Override
-    public String toString() {
-        return "EvenNumbersIterator{"
-                + "data=" + Arrays.toString(data)
-                + ", index=" + index
-                + '}';
-    }
-
 }
