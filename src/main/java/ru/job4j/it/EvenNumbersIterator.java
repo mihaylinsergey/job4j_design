@@ -15,15 +15,13 @@ public class EvenNumbersIterator implements Iterator<Integer> {
 
     @Override
     public boolean hasNext() {
-        boolean rsl = false;
-        for (int i = index; i < data.length; i++) {
-            if (data[i] % 2 == 0) {
-                index = i;
-                rsl = true;
+        if (index < data.length) {
+            while (!(data[index] % 2 == 0)) {
+                index++;
                 break;
             }
         }
-        return rsl;
+        return index < data.length;
     }
 
     @Override
@@ -32,5 +30,13 @@ public class EvenNumbersIterator implements Iterator<Integer> {
             throw new NoSuchElementException();
         }
         return data[index++];
+    }
+
+    @Override
+    public String toString() {
+        return "EvenNumbersIterator{"
+               + "data=" + Arrays.toString(data)
+              + ", index=" + index
+              +  '}';
     }
 }
