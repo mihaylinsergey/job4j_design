@@ -23,17 +23,13 @@ public class SimpleLinkedList<E> implements List<E> {
         modCount++;
     }
 
-    private Node<E> getNextElement(Node<E> index) {
-        return index.getNext();
-    }
-
     @Override
     public E get(int index) {
         modCount++;
         Objects.checkIndex(index, size);
         Node<E> target = first;
         for (int i = 0; i < index; i++) {
-            target = getNextElement(target);
+            target = target.getNext();
         }
         return target.getItem();
     }
