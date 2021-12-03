@@ -32,32 +32,9 @@ public class SimpleSet<T> implements Set<T> {
         return rsl;
     }
 
-    @Override
+     @Override
     public Iterator<T> iterator() {
         return set.iterator();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        SimpleSet<?> simpleSet = (SimpleSet<?>) o;
-        return Objects.equals(set, simpleSet.set);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(set);
-    }
-
-     public static void main(String[] args) {
-        Set<Integer> set = new SimpleSet<>();
-        set.add(null);
-        System.out.println(set);
-        System.out.println(set.contains(null));
-    }
-}
+ }
