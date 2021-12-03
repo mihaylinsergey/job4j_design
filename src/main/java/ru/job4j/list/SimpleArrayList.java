@@ -22,7 +22,9 @@ public class SimpleArrayList<T> implements List<T> {
     }
 
     public void grow(T value) {
-      if (size == container.length) {
+      if (size == 0) {
+          container = Arrays.copyOf(container, 1);
+      } else if (size == container.length) {
             container = Arrays.copyOf(container, container.length * 2);
         }
     }
