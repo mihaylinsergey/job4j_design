@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public class SimpleSet<T> implements Set<T> {
 
-    private SimpleArrayList<T> set = new SimpleArrayList<>(5);
+    private SimpleArrayList<T> set = new SimpleArrayList<>(0);
 
 
     @Override
