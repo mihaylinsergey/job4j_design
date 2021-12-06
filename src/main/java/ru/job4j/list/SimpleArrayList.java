@@ -93,4 +93,33 @@ public class SimpleArrayList<T> implements List<T> {
             }
         };
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        SimpleArrayList<?> that = (SimpleArrayList<?>) o;
+        return size == that.size && modCount
+                == that.modCount && Arrays.equals(container, that.container);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(size, modCount);
+        result = 31 * result + Arrays.hashCode(container);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "SimpleArrayList{"
+               + "container=" + Arrays.toString(container)
+               + ", size=" + size
+               + ", modCount=" + modCount
+               + '}';
+    }
 }
