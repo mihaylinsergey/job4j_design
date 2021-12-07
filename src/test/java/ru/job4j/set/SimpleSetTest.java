@@ -13,13 +13,13 @@ public class SimpleSetTest {
         assertTrue(set.contains(1));
         assertFalse(set.add(1));
     }
-/*
+
     @Test
     public void whenAddNull() {
         Set<Integer> set = new SimpleSet<>();
         assertTrue(set.add(null));
         assertTrue(set.contains(null));
         assertFalse(set.add(null));
-    }*/
+    }
 
 }

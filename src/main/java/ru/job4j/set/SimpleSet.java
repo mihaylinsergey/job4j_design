@@ -37,4 +37,13 @@ public class SimpleSet<T> implements Set<T> {
         return set.iterator();
     }
 
+    public static void main(String[] args) {
+        String s = null;
+        String f = null;
+        System.out.println(Objects.equals(f, s));
+
+        Set<Integer> set = new SimpleSet<>();
+        set.add(null);
+        System.out.println(set.contains(null));
+    }
 }

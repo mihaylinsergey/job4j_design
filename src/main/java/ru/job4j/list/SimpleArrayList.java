@@ -78,10 +78,7 @@ public class SimpleArrayList<T> implements List<T> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                while (point < size && container[point] == null) {
-                    point++;
-                }
-                return point < size && container[point] != null;
+                return point < size;
             }
 
             @Override
@@ -92,34 +89,5 @@ public class SimpleArrayList<T> implements List<T> {
                 return container[point++];
             }
         };
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        SimpleArrayList<?> that = (SimpleArrayList<?>) o;
-        return size == that.size && modCount
-                == that.modCount && Arrays.equals(container, that.container);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = Objects.hash(size, modCount);
-        result = 31 * result + Arrays.hashCode(container);
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "SimpleArrayList{"
-               + "container=" + Arrays.toString(container)
-               + ", size=" + size
-               + ", modCount=" + modCount
-               + '}';
     }
 }
