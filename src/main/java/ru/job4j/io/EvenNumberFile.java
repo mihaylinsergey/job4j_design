@@ -14,9 +14,9 @@ public class EvenNumberFile {
             for (String line : lines) {
                 boolean rsl = Integer.parseInt(line) % 2 == 0;
                 if (rsl) {
-                    System.out.println("Четное");
+                    System.out.println(line + " : четное");
                 } else {
-                    System.out.println("Не четное");
+                    System.out.println(line + " : не четное");
                 }
             }
         } catch (Exception e) {
