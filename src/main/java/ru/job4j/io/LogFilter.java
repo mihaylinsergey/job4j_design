@@ -9,7 +9,9 @@ public class LogFilter {
         List<String> rsl = null;
         try (BufferedReader in = new BufferedReader(new FileReader(file))) {
             rsl = in.lines()
-                    .filter(x -> x.contains("404") && (x.length() - x.indexOf("404") < 10))
+                    .filter(x -> x.substring(x.lastIndexOf(" ") - 3,
+                            x.lastIndexOf(" "))
+                            .equals("404"))
                     .map(x -> x + System.lineSeparator())
                     .collect(Collectors.toList());
         } catch (Exception e) {
@@ -23,7 +25,7 @@ public class LogFilter {
                 new BufferedOutputStream(
                         new FileOutputStream(file)
                 ))) {
-                    out.println(log);
+                    log.forEach(System.out::println);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
