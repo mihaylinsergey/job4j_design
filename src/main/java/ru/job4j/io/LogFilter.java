@@ -32,6 +32,7 @@ public class LogFilter {
 
     }
 
+
     public static void main(String[] args) {
         List<String> log = filter("log.txt");
         System.out.printf("%s%n", log);
