@@ -32,7 +32,7 @@ public class LogFilter {
 
     public static void main(String[] args) {
         List<String> log = filter("log.txt");
-        System.out.println(log);
+        System.out.printf("%s%n", log);
         save(log, "404.txt");
     }
 }
