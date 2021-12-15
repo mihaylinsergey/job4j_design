@@ -25,17 +25,18 @@ public class LogFilter {
                 new BufferedOutputStream(
                         new FileOutputStream(file)
                 ))) {
-                    log.forEach(System.out::println);
+                        for (String i : log) {
+                            out.print(i);
+                        }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
     }
 
-
     public static void main(String[] args) {
         List<String> log = filter("log.txt");
-        System.out.printf("%s%n", log);
+        log.forEach(System.out::print);
         save(log, "404.txt");
     }
 }
