@@ -20,7 +20,7 @@ public class Config {
         )) {
               read
                       .lines()
-                      .filter(x -> x.contains("="))
+                      .filter(x -> x.contains("=") && !x.startsWith("#"))
                       .forEach(x -> values.put(x.substring(0, x.indexOf("=")),
                               x.substring(x.indexOf("=") + 1)));
         } catch (Exception e) {
