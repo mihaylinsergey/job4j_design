@@ -11,16 +11,16 @@ public class Analizy {
                 new FileReader(source));
                 PrintWriter out = new PrintWriter(
                         new FileOutputStream(target))) {
-            int flag = 0;
+            boolean flag = true;
             for (String status = in.readLine(); status != null; status = in.readLine()) {
-                if (flag == 0 && (status.contains("400")
+                if (flag && (status.contains("400")
                         || status.contains("500"))) {
                     out.print(status.split(" ")[1] + ";");
-                    flag = 1;
-                } else if (flag != 0 && (!status.contains("400")
+                    flag = false;
+                } else if (flag && (!status.contains("400")
                         && !status.contains("500"))) {
                     out.print(status.split(" ")[1] + ";");
-                    flag = 0;
+                    flag = true;
                 }
             }
         } catch (Exception e) {
