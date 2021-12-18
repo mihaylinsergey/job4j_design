@@ -17,7 +17,7 @@ public class Analizy {
                         || status.contains("500"))) {
                     out.print(status.split(" ")[1] + ";");
                     flag = false;
-                } else if (flag && (!status.contains("400")
+                } else if (!flag && (!status.contains("400")
                         && !status.contains("500"))) {
                     out.print(status.split(" ")[1] + ";");
                     flag = true;
