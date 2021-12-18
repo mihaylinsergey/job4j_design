@@ -13,15 +13,12 @@ public class Analizy {
                         new FileOutputStream(target))) {
             int flag = 0;
             for (String status = in.readLine(); status != null; status = in.readLine()) {
-                if (flag == 0 && status.contains("400")
-                        || status.contains("500")) {
+                if (flag == 0 && (status.contains("400")
+                        || status.contains("500"))) {
                     out.print(status.split(" ")[1] + ";");
                     flag = 1;
-                } else if (flag == 1 && status.contains("400")
-                            || status.contains("500")) {
-                        out.print(status.split(" ")[1] + ";");
-                } else if (flag != 0 && !status.contains("400")
-                        && !status.contains("500")) {
+                } else if (flag != 0 && (!status.contains("400")
+                        && !status.contains("500"))) {
                     out.print(status.split(" ")[1] + ";");
                     flag = 0;
                 }
