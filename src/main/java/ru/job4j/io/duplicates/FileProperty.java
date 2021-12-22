@@ -13,23 +13,7 @@ public class FileProperty {
         this.name = name;
     }
 
-    public long getSize() {
-        return size;
-    }
-
-    public void setSize(long size) {
-        this.size = size;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
+       @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
