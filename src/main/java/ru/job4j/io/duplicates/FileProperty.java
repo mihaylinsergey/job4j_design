@@ -37,4 +37,5 @@ public class FileProperty {
                + ", name='" + name + '\''
                + '}';
     }
+
 }
