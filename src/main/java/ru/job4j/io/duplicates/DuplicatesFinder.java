@@ -10,7 +10,7 @@ public class DuplicatesFinder {
         Files.walkFileTree(Path.of("./target"), duplicatesVisitor);
         duplicatesVisitor.getDuplicates().forEach((key, value) -> {
             if (value.size() > 1) {
-                value.forEach(y -> y.forEach(System.out::print));
+                value.forEach(System.out::println);
             }
         });
     }
