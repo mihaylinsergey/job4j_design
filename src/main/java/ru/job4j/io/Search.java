@@ -9,11 +9,17 @@ import java.util.function.Predicate;
 
 public class Search {
     public static void main(String[] args) throws IOException {
-        if (args.length == 0) {
+        if (args.length != 2) {
             throw new IllegalArgumentException(
                     "Root folder is null. Usage java -jar dir.jar ROOT_FOLDER.");
         }
         Path start = Paths.get(args[0]);
+        if (!start.toFile().exists()) {
+            throw new IllegalArgumentException(String.format("Not exist %s", start.toFile().getAbsoluteFile()));
+        }
+        if (!start.toFile().isDirectory()) {
+            throw new IllegalArgumentException(String.format("Not directory %s", start.toFile().getAbsoluteFile()));
+        }
         search(start, p -> p.toFile().getName().endsWith(args[1])).forEach(System.out::println);
     }
 
