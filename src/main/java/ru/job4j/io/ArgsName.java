@@ -1,5 +1,6 @@
 package ru.job4j.io;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,14 +16,10 @@ public class ArgsName {
         if (args.length == 0) {
             throw new IllegalArgumentException();
         }
-        for (var i : args) {
-            String key = i.substring(1, i.indexOf("="));
-            String value = i.substring(i.indexOf("=") + 1);
-            if (!key.isEmpty() && !value.isEmpty()) {
-                values.put(key, value);
-            } else {
-                throw new IllegalArgumentException();
-            }
+        if (validateArgs(args)) {
+            Arrays.stream(args).
+                    forEach(x -> values.put(x.substring(1, x.indexOf("=")),
+                    x.substring(x.indexOf("=") + 1)));
         }
     }
 
@@ -30,6 +27,21 @@ public class ArgsName {
         ArgsName names = new ArgsName();
         names.parse(args);
         return names;
+    }
+
+    public static boolean validateArgs(String[] args) {
+        boolean rsl = false;
+        for (var i : args) {
+            String key = i.substring(1, i.indexOf("="));
+            String value = i.substring(i.indexOf("=") + 1);
+            if (i.startsWith("-") && !key.isEmpty()
+                    && !value.isEmpty() && i.contains("=")) {
+                rsl = true;
+            } else {
+                throw new IllegalArgumentException();
+            }
+        }
+        return rsl;
     }
 
     public static void main(String[] args) {
