@@ -14,12 +14,20 @@ public class ArgsName {
 
     private void parse(String[] args) {
         if (args.length == 0) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("String[] args is empty");
         }
         if (validateArgs(args)) {
-            Arrays.stream(args).
-                    forEach(x -> values.put(x.substring(1, x.indexOf("=")),
-                    x.substring(x.indexOf("=") + 1)));
+            for (var i : args) {
+                long count = i.chars().filter(x -> x == '=').count();
+                if (i.startsWith("-") && count == 1.0) {
+                    String key = i.substring(1, i.indexOf("="));
+                    String value = i.substring(i.indexOf("=") + 1);
+                    if (!key.isEmpty() && !value.isEmpty()) {
+                        values.put(i.substring(1, i.indexOf("=")),
+                                i.substring(i.indexOf("=") + 1));
+                    }
+                }
+            }
         }
     }
 
@@ -32,13 +40,16 @@ public class ArgsName {
     public static boolean validateArgs(String[] args) {
         boolean rsl = false;
         for (var i : args) {
-            String key = i.substring(1, i.indexOf("="));
-            String value = i.substring(i.indexOf("=") + 1);
-            if (i.startsWith("-") && !key.isEmpty()
-                    && !value.isEmpty() && i.contains("=")) {
-                rsl = true;
-            } else {
-                throw new IllegalArgumentException();
+            long count = i.chars().filter(x -> x == '=').count();
+            if (i.startsWith("-") && count == 1.0) {
+                String key = i.substring(1, i.indexOf("="));
+                String value = i.substring(i.indexOf("=") + 1);
+                if (!key.isEmpty() && !value.isEmpty()) {
+                    rsl = true;
+                } else {
+                    throw new IllegalArgumentException("Key "
+                            + key + " or Value " + value + " is empty");
+                }
             }
         }
         return rsl;
