@@ -1,6 +1,5 @@
 package ru.job4j.io;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,13 +18,9 @@ public class ArgsName {
         if (validateArgs(args)) {
             for (var i : args) {
                 long count = i.chars().filter(x -> x == '=').count();
-                if (i.startsWith("-") && count == 1.0) {
-                    String key = i.substring(1, i.indexOf("="));
-                    String value = i.substring(i.indexOf("=") + 1);
-                    if (!key.isEmpty() && !value.isEmpty()) {
-                        values.put(i.substring(1, i.indexOf("=")),
+                if (count == 1.0) {
+                    values.put(i.substring(1, i.indexOf("=")),
                                 i.substring(i.indexOf("=") + 1));
-                    }
                 }
             }
         }
@@ -37,11 +32,10 @@ public class ArgsName {
         return names;
     }
 
-    public static boolean validateArgs(String[] args) {
+    private static boolean validateArgs(String[] args) {
         boolean rsl = false;
         for (var i : args) {
-            long count = i.chars().filter(x -> x == '=').count();
-            if (i.startsWith("-") && count == 1.0) {
+            if (i.startsWith("-") && i.contains("=")) {
                 String key = i.substring(1, i.indexOf("="));
                 String value = i.substring(i.indexOf("=") + 1);
                 if (!key.isEmpty() && !value.isEmpty()) {
