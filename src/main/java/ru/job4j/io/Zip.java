@@ -24,10 +24,10 @@ public class Zip {
     }
 
     public static void main(String[] args) {
-  //     Arrays.stream(args).forEach(System.out::println);
+  /*    Arrays.stream(args).forEach(System.out::println);
        ArgsName keyValue = ArgsName.of(args);
         System.out.println(keyValue.get("d"));
-     /*   packSingleFile(
+        packSingleFile(
                 new File("./pom.xml"),
                 new File("./pom.zip")
         );*/
