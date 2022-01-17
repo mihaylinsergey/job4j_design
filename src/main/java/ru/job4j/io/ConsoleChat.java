@@ -26,27 +26,33 @@ public class ConsoleChat {
         List<String> log = new ArrayList<>();
         boolean stop = false;
         boolean out = false;
+        List<String> listPhrases = readPhrases();
         while (!out) {
             String word = in.nextLine();
             log.add(word + System.lineSeparator());
+            String answer = new String();
             switch (word) {
-                case "стоп":
+                case STOP:
                     stop = true;
                     break;
-                case "продолжить":
+                case CONTINUE:
                     stop = false;
+                    answer = listPhrases
+                            .get(new Random().nextInt(3))
+                            + System.lineSeparator();
                     break;
-                case "закончить":
+                case OUT:
                     out = true;
                     break;
                 default:
                     if (!stop) {
-                        String answer = readPhrases()
-                                .get(new Random().nextInt(3));
-                        log.add(answer + System.lineSeparator());
-                        System.out.println(answer);
+                        answer = listPhrases
+                                .get(new Random().nextInt(3))
+                                + System.lineSeparator();
                     }
             }
+            log.add(answer);
+            System.out.print(answer);
         }
         saveLog(log);
         }
