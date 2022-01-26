@@ -38,7 +38,7 @@ public class ConsoleChat {
                 case CONTINUE:
                     stop = false;
                     answer = listPhrases
-                            .get(new Random().nextInt(3))
+                            .get(new Random().nextInt(listPhrases.size()))
                             + System.lineSeparator();
                     break;
                 case OUT:
@@ -47,7 +47,7 @@ public class ConsoleChat {
                 default:
                     if (!stop) {
                         answer = listPhrases
-                                .get(new Random().nextInt(3))
+                                .get(new Random().nextInt(listPhrases.size()))
                                 + System.lineSeparator();
                     }
             }
