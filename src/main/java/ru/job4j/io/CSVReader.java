@@ -8,26 +8,33 @@ import java.util.*;
 public class CSVReader {
     public static void handle(ArgsName argsName) throws Exception {
         if (validate(argsName)) {
+            List<StringBuilder> result = new ArrayList<>();
             try (FileReader reader = new FileReader(argsName.get("path"));
-                 PrintWriter out = new PrintWriter(
-                         new FileWriter(argsName.get("out")));
                  var scanner = new Scanner(reader)) {
-                 int[] columnNumber = prepareFilter(argsName);
-                 while (scanner.hasNextLine()) {
+                int[] columnNumber = prepareFilter(argsName);
+                while (scanner.hasNextLine()) {
                     String[] tempLine = scanner.nextLine().split(argsName.get("delimiter"));
                     StringBuilder needLine = new StringBuilder();
                     needLine.append(tempLine[0]);
                     for (int i = 1; i < columnNumber.length; i++) {
                         needLine.append(";" + tempLine[i]);
                     }
-                        if (argsName.get("out").equals("stdout")) {
-                        System.out.println(needLine);
-                        } else {
-                        out.println(needLine);
-                        }
-                 }
+                   result.add(needLine);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+            if ("stdout".equals(argsName.get("out"))) {
+                result.forEach(System.out::println);
+            } else {
+                try (PrintWriter out = new PrintWriter(
+                             new FileWriter(argsName.get("out")))) {
+                     for (var i : result) {
+                         out.println(i);
+                     }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -35,11 +42,7 @@ public class CSVReader {
 
     private static boolean validate(ArgsName argsName) {
         boolean rsl = false;
-        Path start = Paths.get(argsName.get("path"));
-        if (!start.toFile().exists()) {
-            throw new IllegalArgumentException(String.format("Not exist %s", start.toFile().getAbsoluteFile()));
-        }
-         String[] values = {"path", "delimiter", "out", "filter"};
+        String[] values = {"path", "delimiter", "out", "filter"};
         Set<String> check = new HashSet<>();
         for (var value : values) {
             check.add(argsName.get(value));
@@ -48,6 +51,16 @@ public class CSVReader {
             rsl = true;
         } else {
             throw new IllegalArgumentException("There are not correct arguments");
+        }
+        Path start = Paths.get(argsName.get("path"));
+        if (!start.toFile().exists()) {
+            throw new IllegalArgumentException(String.format("Not exist %s", start.toFile().getAbsoluteFile()));
+        }
+        if (!("stdout".equals(argsName.get("out")))) {
+            Path file = Paths.get(argsName.get("out"));
+            if (!file.toFile().exists()) {
+                throw new IllegalArgumentException(String.format("Not exist %s", start.toFile().getAbsoluteFile()));
+            }
         }
         return rsl;
     }
