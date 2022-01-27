@@ -17,12 +17,7 @@ public class ArgsName {
             throw new IllegalArgumentException("String[] args is empty");
         }
         for (var arg : args) {
-            long count = arg.chars().filter(x -> x == '=').count();
-                    if (count == 1.0) {
-                        values.put(validateWord(arg)[0],
-                                validateWord(arg)[1]);
-                    }
-
+            values.put(validateWord(arg)[0], validateWord(arg)[1]);
         }
     }
 
@@ -34,13 +29,16 @@ public class ArgsName {
 
     private static String[] validateWord(String word) {
         String[] rsl = new String[2];
-        if (word.startsWith("-") && word.contains("=")) {
+        long count = word.chars().filter(x -> x == '=').count();
+        if (word.startsWith("-") && word.contains("=") && count == 1.0) {
             rsl[0] = word.substring(1, word.indexOf("="));
             rsl[1] = word.substring(word.indexOf("=") + 1);
             if (rsl[0].isEmpty() || rsl[1].isEmpty()) {
                 throw new IllegalArgumentException("Key "
                         + rsl[0] + " or Value " + rsl[1] + " is empty");
             }
+        } else {
+                throw new IllegalArgumentException("The format of the arguments is not correct");
         }
         return rsl;
     }

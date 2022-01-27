@@ -29,4 +29,24 @@ public class ArgsNameTest {
     public void whenWrongSomeArgument() {
         ArgsName jvm = ArgsName.of(new String[] {"-enconding=UTF-8", "-Xmx="});
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenKeyIsEmpty() {
+        ArgsName jvm = ArgsName.of(new String[] {"=UTF-8"});
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenThereIsNoHyphen() {
+        ArgsName jvm = ArgsName.of(new String[] {"encoding=UTF-8"});
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenThereIsNoEqualSign() {
+        ArgsName jvm = ArgsName.of(new String[] {"-encoding--UTF-8"});
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenMoreEqualSign() {
+        ArgsName jvm = ArgsName.of(new String[] {"-encoding==UTF-8"});
+    }
 }
