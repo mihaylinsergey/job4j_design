@@ -17,9 +17,9 @@ public class CSVReader {
                     StringBuilder needLine = new StringBuilder();
                     needLine.append(tempLine[0]);
                     for (int i = 1; i < columnNumber.length; i++) {
-                        needLine.append(";" + tempLine[i]);
+                        needLine.append(";").append(tempLine[columnNumber[i]]);
                     }
-                   result.add(needLine);
+                    result.add(needLine);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -38,7 +38,6 @@ public class CSVReader {
             }
         }
     }
-
 
     private static boolean validate(ArgsName argsName) {
         boolean rsl = false;
