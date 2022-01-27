@@ -30,7 +30,7 @@ public class ConsoleChat {
         while (!out) {
             String word = in.nextLine();
             log.add(word + System.lineSeparator());
-            String answer = new String();
+            String answer = "";
             switch (word) {
                 case STOP:
                     stop = true;
