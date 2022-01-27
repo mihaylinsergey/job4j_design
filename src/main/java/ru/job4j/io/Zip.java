@@ -38,7 +38,8 @@ public class Zip {
 
     public static void validate(String[] args) {
         ArgsName keyValue = ArgsName.of(args);
-        if (keyValue.get("d").isEmpty() || keyValue.get("e").isEmpty() || keyValue.get("o").isEmpty()) {
+        if ("null".equals(keyValue.get("d")) || "null".equals(keyValue.get("e"))
+                || "null".equals(keyValue.get("o")) || args.length != 3) {
             throw new IllegalArgumentException("Keys 'd', 'e' or 'o' are wrong");
         }
     }
@@ -46,7 +47,7 @@ public class Zip {
     public static void main(String[] args) {
         Arrays.stream(args).forEach(System.out::println);
         validate(args);
-        ArgsName keyValue = ArgsName.of(new String[]{args[3], args[4], args[5]});
+        ArgsName keyValue = ArgsName.of(args);
         List<File> sources = new ArrayList<>();
         Path start = Paths.get(keyValue.get("d"));
         try {
