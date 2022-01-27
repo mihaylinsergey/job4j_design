@@ -1,17 +1,19 @@
 package ru.job4j.io;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
 public class CSVReader {
-    public static void handle(ArgsName argsName) throws Exception {
-        if (validate(argsName)) {
+    public static void handle(ArgsName argsName) {
+        CSVReader demo = new CSVReader();
+        if (demo.validate(argsName)) {
             List<StringBuilder> result = new ArrayList<>();
             try (FileReader reader = new FileReader(argsName.get("path"));
                  var scanner = new Scanner(reader)) {
-                int[] columnNumber = prepareFilter(argsName);
+                int[] columnNumber = demo.prepareFilter(argsName);
                 while (scanner.hasNextLine()) {
                     String[] tempLine = scanner.nextLine().split(argsName.get("delimiter"));
                     StringBuilder needLine = new StringBuilder();
@@ -39,7 +41,7 @@ public class CSVReader {
         }
     }
 
-    private static boolean validate(ArgsName argsName) {
+    private boolean validate(ArgsName argsName) {
         boolean rsl = false;
         String[] values = {"path", "delimiter", "out", "filter"};
         Set<String> check = new HashSet<>();
@@ -64,7 +66,7 @@ public class CSVReader {
         return rsl;
     }
 
-    private static int[] prepareFilter(ArgsName argsName) {
+    private int[] prepareFilter(ArgsName argsName) {
         String[] paramFilter = argsName.get("filter").split(",");
         int[] columnNumbers = new int[paramFilter.length];
         try (FileReader reader = new FileReader(argsName.get("path"));
@@ -82,5 +84,29 @@ public class CSVReader {
             e.printStackTrace();
         }
         return columnNumbers;
+    }
+
+    public static void main(String[] args) throws Exception {
+        String data = String.join(
+                System.lineSeparator(),
+                "name;age;last_name;education",
+                "Tom;20;Smith;Bachelor",
+                "Jack;25;Johnson;Undergraduate",
+                "William;30;Brown;Secondary special"
+        );
+        try {
+            File tempFile = File.createTempFile("source.csv", null);
+            ArgsName argsName = ArgsName.of(new String[]{
+                    "-path=" + tempFile.getAbsolutePath(), "-delimiter=;", "-out=stdout", "-filter=name,last_name"
+            });
+            Files.writeString(tempFile.toPath(), data);
+            CSVReader.handle(argsName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+
     }
 }
