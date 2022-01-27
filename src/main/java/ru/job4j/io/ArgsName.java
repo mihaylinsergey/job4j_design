@@ -17,13 +17,12 @@ public class ArgsName {
             throw new IllegalArgumentException("String[] args is empty");
         }
         for (var arg : args) {
-            if (validateWord(arg)) {
-                long count = arg.chars().filter(x -> x == '=').count();
+            long count = arg.chars().filter(x -> x == '=').count();
                     if (count == 1.0) {
-                        values.put(arg.substring(1, arg.indexOf("=")),
-                                arg.substring(arg.indexOf("=") + 1));
+                        values.put(validateWord(arg)[0],
+                                validateWord(arg)[1]);
                     }
-            }
+
         }
     }
 
@@ -33,16 +32,14 @@ public class ArgsName {
         return names;
     }
 
-    private static boolean validateWord(String word) {
-        boolean rsl = false;
+    private static String[] validateWord(String word) {
+        String[] rsl = new String[2];
         if (word.startsWith("-") && word.contains("=")) {
-            String key = word.substring(1, word.indexOf("="));
-            String value = word.substring(word.indexOf("=") + 1);
-            if (!key.isEmpty() && !value.isEmpty()) {
-                rsl = true;
-            } else {
+            rsl[0] = word.substring(1, word.indexOf("="));
+            rsl[1] = word.substring(word.indexOf("=") + 1);
+            if (rsl[0].isEmpty() || rsl[1].isEmpty()) {
                 throw new IllegalArgumentException("Key "
-                        + key + " or Value " + value + " is empty");
+                        + rsl[0] + " or Value " + rsl[1] + " is empty");
             }
         }
         return rsl;
@@ -51,8 +48,10 @@ public class ArgsName {
     public static void main(String[] args) {
         ArgsName jvm = ArgsName.of(new String[] {"-Xmx=512", "-encoding=UTF-8"});
         System.out.println(jvm.get("Xmx"));
+        System.out.println(jvm.get("encoding"));
 
-        ArgsName zip = ArgsName.of(new String[] {"-out=project.zip", "-encoding=UTF-8"});
+        ArgsName zip = ArgsName.of(new String[] {"-out=project.zip", "-encoding==UTF-8"});
         System.out.println(zip.get("out"));
+        System.out.println(zip.get("encoding"));
     }
 }
