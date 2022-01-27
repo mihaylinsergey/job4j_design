@@ -37,7 +37,7 @@ public class Zip {
     }
 
     public static void validate(String[] args) {
-        ArgsName keyValue = ArgsName.of(new String[]{args[3], args[4], args[5]});
+        ArgsName keyValue = ArgsName.of(args);
         if (keyValue.get("d").isEmpty() || keyValue.get("e").isEmpty() || keyValue.get("o").isEmpty()) {
             throw new IllegalArgumentException("Keys 'd', 'e' or 'o' are wrong");
         }
