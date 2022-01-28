@@ -17,7 +17,7 @@ public class CSVReader {
                 while (scanner.hasNextLine()) {
                     String[] tempLine = scanner.nextLine().split(argsName.get("delimiter"));
                     StringBuilder needLine = new StringBuilder();
-                    needLine.append(tempLine[0]);
+                    needLine.append(tempLine[columnNumber[0]]);
                     for (int i = 1; i < columnNumber.length; i++) {
                         needLine.append(";").append(tempLine[columnNumber[i]]);
                     }
@@ -97,7 +97,7 @@ public class CSVReader {
         try {
             File tempFile = File.createTempFile("source.csv", null);
             ArgsName argsName = ArgsName.of(new String[]{
-                    "-path=" + tempFile.getAbsolutePath(), "-delimiter=;", "-out=stdout", "-filter=name,last_name"
+                    "-path=" + tempFile.getAbsolutePath(), "-delimiter=;", "-out=stdout", "-filter=education"
             });
             Files.writeString(tempFile.toPath(), data);
             CSVReader.handle(argsName);
