@@ -43,6 +43,7 @@ public class ArgsNameTest {
     @Test(expected = IllegalArgumentException.class)
     public void whenThereIsNoEqualSign() {
         ArgsName jvm = ArgsName.of(new String[] {"-encoding--UTF-8"});
+        jvm.get("encoding");
     }
 
     @Test(expected = IllegalArgumentException.class)
