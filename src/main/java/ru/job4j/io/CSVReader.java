@@ -91,8 +91,7 @@ public class CSVReader {
                 "name;age;last_name;education",
                 "Tom;20;Smith;Bachelor",
                 "Jack;25;Johnson;Undergraduate",
-                "William;30;Brown;Secondary special"
-        );
+                "William;30;Brown;Secondary special");
         try (PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream("file.csv")))) {
             out.write(data);
         } catch (IOException e) {
