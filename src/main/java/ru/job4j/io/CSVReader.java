@@ -94,19 +94,16 @@ public class CSVReader {
                 "Jack;25;Johnson;Undergraduate",
                 "William;30;Brown;Secondary special"
         );
-        try {
-            File tempFile = File.createTempFile("source.csv", null);
-            ArgsName argsName = ArgsName.of(new String[]{
-                    "-path=" + tempFile.getAbsolutePath(), "-delimiter=;", "-out=stdout", "-filter=education"
-            });
-            Files.writeString(tempFile.toPath(), data);
-            CSVReader.handle(argsName);
+        try (PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream("file.csv")))) {
+            out.write(data);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-
-
+            Scanner input = new Scanner(System.in);
+            System.out.println("Input some arguments for example: "
+                    + "java -jar target/csvReader.jar -path=./file.csv -delimiter=; -out=stdout -filter=name,age");
+            String argsString = input.nextLine();
+            ArgsName argsName = ArgsName.of(argsString.split(" "));
+            CSVReader.handle(argsName);
     }
 }

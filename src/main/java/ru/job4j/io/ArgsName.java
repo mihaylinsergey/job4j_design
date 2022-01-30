@@ -20,7 +20,9 @@ public class ArgsName {
             throw new IllegalArgumentException("String[] args is empty");
         }
         for (var arg : args) {
-            values.put(validateWord(arg)[0], validateWord(arg)[1]);
+            if (arg.contains("=")) {
+                values.put(validateWord(arg)[0], validateWord(arg)[1]);
+            }
         }
     }
 
@@ -41,7 +43,8 @@ public class ArgsName {
                         + rsl[0] + " or Value " + rsl[1] + " is empty");
             }
         } else {
-                throw new IllegalArgumentException("The format of the arguments is not correct");
+                throw new IllegalArgumentException("The format of the arguments is not correct: "
+                        + word + " " + rsl[0] + " " + rsl[1]);
         }
         return rsl;
     }
