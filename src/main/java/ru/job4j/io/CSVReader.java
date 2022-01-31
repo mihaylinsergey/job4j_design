@@ -47,11 +47,10 @@ public class CSVReader {
         for (var value : values) {
             check.add(argsName.get(value));
         }
-        if (check.size() == 4) {
-            rsl = true;
-        } else {
+        if (check.size() != 4) {
             throw new IllegalArgumentException("There are not correct arguments");
         }
+        rsl = true;
         Path start = Paths.get(argsName.get("path"));
         if (!start.toFile().exists()) {
             throw new IllegalArgumentException(String.format("Not exist %s", start.toFile().getAbsoluteFile()));
@@ -86,22 +85,9 @@ public class CSVReader {
     }
 
     public static void main(String[] args) throws Exception {
-        String data = String.join(
-                System.lineSeparator(),
-                "name;age;last_name;education",
-                "Tom;20;Smith;Bachelor",
-                "Jack;25;Johnson;Undergraduate",
-                "William;30;Brown;Secondary special");
-        try (PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream("file.csv")))) {
-            out.write(data);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-            Scanner input = new Scanner(System.in);
-            System.out.println("Input some arguments for example: "
-                    + "java -jar target/csvReader.jar -path=./file.csv -delimiter=; -out=stdout -filter=name,age");
-            String argsString = input.nextLine();
-            ArgsName argsName = ArgsName.of(argsString.split(" "));
-            CSVReader.handle(argsName);
-    }
+        /* java -jar target/csvReader.jar -path=./file.csv -delimiter=; -out=stdout -filter=name,age */
+        ArgsName argsName = ArgsName.of(args);
+        CSVReader.handle(argsName);
+
+     }
 }
