@@ -18,7 +18,7 @@ public class UsageLog4j {
         double catLength = 45.9;
         char gender = 'M';
         boolean healthy = true;
-        LOG.debug("User info name : {}, age : {}, eyes : {}, paws : {}, pawLength : {}, tailLength : {}, "
+        LOG.debug("User info name : {}, age : {}, eyes : {}, paws : {}, pawLength : {}, tailLength : {},"
                + "catLength : {}, gender : {}, healthy : {}", name, age, eyes, paws, pawLength, tailLength, catLength,
                 gender, healthy);
     }
