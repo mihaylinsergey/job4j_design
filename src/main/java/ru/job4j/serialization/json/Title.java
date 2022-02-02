@@ -1,16 +1,25 @@
 package ru.job4j.serialization.json;
 
-public class Title {
-    private String title;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 
-    public Title(String title) {
-        this.title = title;
-    }
+    @XmlRootElement(name = "title")
+    public class Title {
 
-    @Override
-    public String toString() {
-        return "Title{"
+        public Title() {
+        }
+
+        @XmlAttribute
+        private String title;
+
+        public Title(String title) {
+            this.title = title;
+        }
+
+         @Override
+         public String toString() {
+           return "Title{"
                + "title='" + title + '\''
                + '}';
+         }
     }
-}
