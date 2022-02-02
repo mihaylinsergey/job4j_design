@@ -15,6 +15,14 @@ public class Person {
         this.statuses = statuses;
     }
 
+    public boolean isSex() {
+        return sex;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
     @Override
     public String toString() {
         return "Person{"
@@ -24,4 +32,5 @@ public class Person {
                 + ", statuses=" + Arrays.toString(statuses)
                 + '}';
     }
+
 }

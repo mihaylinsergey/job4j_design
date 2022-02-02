@@ -31,6 +31,14 @@ public class Item {
         this.accessories = accessories;
     }
 
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public int getiD() {
+        return iD;
+    }
+
     @Override
     public String toString() {
         return "Item{"
