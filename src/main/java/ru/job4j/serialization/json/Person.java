@@ -23,6 +23,14 @@ public class Person {
         return age;
     }
 
+    public Contact getContact() {
+        return contact;
+    }
+
+    public String[] getStatuses() {
+        return statuses;
+    }
+
     @Override
     public String toString() {
         return "Person{"

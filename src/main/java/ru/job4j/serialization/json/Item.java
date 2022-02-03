@@ -15,7 +15,7 @@ public class Item {
     private boolean available;
 
     @XmlAttribute
-    private int iD;
+    private int id;
     private Title title;
     @XmlElementWrapper(name = "accessories")
     @XmlElement(name = "accessories")
@@ -26,7 +26,7 @@ public class Item {
 
     public Item(boolean available, int iD, Title title, String[] accessories) {
         this.available = available;
-        this.iD = iD;
+        this.id = iD;
         this.title = title;
         this.accessories = accessories;
     }
@@ -35,15 +35,23 @@ public class Item {
         return available;
     }
 
-    public int getiD() {
-        return iD;
+    public int getId() {
+        return id;
+    }
+
+    public Title getTitle() {
+        return title;
+    }
+
+    public String[] getAccessories() {
+        return accessories;
     }
 
     @Override
     public String toString() {
         return "Item{"
               + "available=" + available
-              +  ", iD=" + iD
+              +  ", iD=" + id
               +  ", title=" + title
               +  ", accessories=" + Arrays.toString(accessories)
               +  '}';

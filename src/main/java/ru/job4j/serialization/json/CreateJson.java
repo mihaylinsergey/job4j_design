@@ -1,7 +1,5 @@
 package ru.job4j.serialization.json;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -22,7 +20,7 @@ public class CreateJson {
                 new String[] {"headphone", "case"});
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("available", example.isAvailable());
-        jsonObject.put("iD", example.getiD());
+        jsonObject.put("iD", example.getId());
         jsonObject.put("title", jsonTitle);
         jsonObject.put("accessories", jsonAccessories);
 
