@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
@@ -16,14 +17,22 @@ import java.util.regex.Pattern;
 public class SearchExam {
 
     private ArgsName argsName;
-    private List<Path> files;
+    private List<Path> files = Collections.EMPTY_LIST;
 
     private void handle() throws IOException {
         String searchType = argsName.get("t");
         if ("mask".equals(searchType)) {
-            files = search(Paths.get(argsName.get("d")), x -> x.toFile()
-                    .getName()
-                    .endsWith(argsName.get("n").replace("*", "")));
+            if (argsName.get("n").contains("*")) {
+               Pattern pattern = Pattern.compile(argsName.get("n").replace("*", ""));
+               files = search(Paths.get(argsName.get("d")), x -> pattern
+                        .matcher(x.toFile().getName())
+                        .find());
+            } else if (argsName.get("n").contains("?")) {
+                Pattern pattern = Pattern.compile(argsName.get("n").replace("?", ""));
+                files = search(Paths.get(argsName.get("d")), x -> pattern
+                        .matcher(x.toFile().getName())
+                        .find());
+            }
         } else if ("name".equals(searchType)) {
             files = search(Paths.get(argsName.get("d")), x -> x.toFile()
                     .getName().equals(argsName.get("n")));
@@ -49,6 +58,10 @@ public class SearchExam {
     private void writeOut() {
         try (PrintWriter out = new PrintWriter(
                 new FileWriter(argsName.get("o")))) {
+            if (files.size() == 0) {
+                System.out.println("Files not found!");
+                return;
+            }
             files.forEach(out::println);
         } catch (IOException e) {
             e.printStackTrace();
