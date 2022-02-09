@@ -1,0 +1,32 @@
+insert into role(name) values ('User');
+insert into role(name) values ('Owner');
+insert into role(name) values ('Admin');
+
+insert into users(name, role_id) values ('Ivanov', 1);
+insert into users(name, role_id) values ('Petrov', 2);
+insert into users(name, role_id) values ('Petrov', 3);
+
+insert into rules(name) values ('Viever');
+insert into rules(name) values ('Edit');
+
+insert into role_rules(role_id, rules_id) values (1, 1);
+insert into role_rules(role_id, rules_id) values (2, 2);
+insert into role_rules(role_id, rules_id) values (3, 2);
+
+insert into category(name) values ('Technical');
+insert into category(name) values ('Others');
+
+insert into state(name) values ('Done');
+insert into state(name) values ('In progress');
+
+insert into item(name, users_id, category_id) values ('Fix the error', 1, 1);
+insert into item(name, users_id, category_id) values ('Delete a user', 2, 2);
+
+insert into comments(name, item_id) values ('The file does not open', 1);
+insert into comments(name, item_id) values ('Delete before 31.12.2022', 2);
+
+insert into attachs(name, item_id) values ('File', 1);
+insert into attachs(name, item_id) values ('File', 2);
+
+
+
