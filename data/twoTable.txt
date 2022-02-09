@@ -1,0 +1,39 @@
+create table habitat(
+	id serial primary key,
+	name text
+);
+
+create table animals (
+    id serial primary key,
+    name text,
+    avg_age int,
+    discovery_date date,
+	habitat_id int references habitat(id)
+); 
+
+insert into habitat(name) values ('Land');
+insert into habitat(name) values ('See');
+
+insert into animals(name, avg_age, habitat_id)
+values ('fish', 1000, 2);
+insert into animals(name, avg_age, discovery_date, habitat_id)
+values ('cat', 5000, '1900-01-01', 1);
+insert into animals(name, avg_age, discovery_date, habitat_id)
+values ('monkey', 11000, '300-01-01', 1);
+insert into animals(name, avg_age, discovery_date, habitat_id)
+values ('medusa', 500, '1960-01-01', 2);
+
+select a.name, h.name
+from animals as a
+inner join habitat as h
+on a.habitat_id=h.id;
+
+select a.name as "Название животных", h.name as "Среда обитания"
+from animals as a
+join habitat as h
+on a.habitat_id=h.id;
+
+select a.name "Название животных", h.name "Среда обитания", a.avg_age
+from animals a
+join habitat h
+on a.habitat_id=h.id;
