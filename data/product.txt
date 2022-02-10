@@ -1,0 +1,74 @@
+create table type(
+id serial primary key,
+name varchar(255)
+);
+
+create table product(
+	id serial primary key,
+	name varchar(255),
+	type_id int references type(id),
+	expired_date date,
+	price float	
+);
+
+insert into type(name) values ('СЫР');
+insert into type(name) values ('МОЛОКО');
+insert into type(name) values ('МЯСО');
+insert into type(name) values ('ХЛЕБ');
+
+insert into product(name, type_id, expired_date, price) 
+values ('Сыр плавленый', 1, '2022-06-01', 100);
+insert into product(name, type_id, expired_date, price) 
+values ('Сыр моцарелла', 1, '2022-05-01', 1000);
+insert into product(name, type_id, expired_date, price) 
+values ('Молоко топленое', 2, '2022-04-01', 80);
+insert into product(name, type_id, expired_date, price) 
+values ('Молоко сгущеное', 2, '2022-12-01', 90);
+insert into product(name, type_id, expired_date, price) 
+values ('Колбаса копченая', 3, '2022-01-01', 1500);
+insert into product(name, type_id, expired_date, price) 
+values ('Хлеб ржаной', 4, '2022-02-20', 40);
+
+select *from product p
+join type t
+on p.type_id=t.id
+where t.name='СЫР';
+
+select *from product p
+where p.name like '%мороженое%';
+
+select *from product p
+where p.expired_date < current_date;
+
+select max(price) from product;
+
+select *from product
+where price = (select max(price) from product);
+
+select t.name, count(p.name)
+from product p
+join type t
+on p.type_id=t.id
+group by t.name;
+
+select *from product p
+join type t
+on p.type_id=t.id
+where t.name='СЫР' or t.name='МОЛОКО';
+
+select t.name, count(p.name)
+from product p
+join type t
+on p.type_id=t.id
+group by t.name
+having count(p.name) < 10;
+
+select p.name, t.name
+from product p
+join type t
+on p.type_id=t.id;
+
+
+
+
+
