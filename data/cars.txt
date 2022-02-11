@@ -16,9 +16,9 @@ create table transmission(
 create table car(
 	id serial primary key,
 	name varchar(255),
-	body_id int,
-	engine_id int,
-	transmission_id int
+	body_id int references body(id),
+	engine_id int references engine(id),
+	transmission_id int references transmission(id)
 );
 
 insert into body(name) values('Coupe');
