@@ -1,0 +1,65 @@
+create table departments(
+	id serial primary key,
+	name varchar(255)
+);
+create table emploers(
+	id serial primary key,
+	name varchar(255),
+	d_id int
+);
+
+insert into departments(name) values ('One');
+insert into departments(name) values ('Two');
+insert into departments(name) values ('Three');
+insert into departments(name) values ('Four');
+
+insert into emploers(name, d_id) values ('Ivanov', 1);
+insert into emploers(name, d_id) values ('Petrov', 1);
+insert into emploers(name, d_id) values ('Sidorov', 1);
+insert into emploers(name, d_id) values ('Orlov', 2);
+insert into emploers(name, d_id) values ('Kozlov', 2);
+insert into emploers(name, d_id) values ('Baklanova', 3);
+
+select *from emploers e
+left join departments d
+on e.d_id=d.id;
+
+select *from emploers e
+right join departments d
+on e.d_id=d.id;
+
+select *from emploers e
+cross join departments d;
+
+select *from departments d
+left join emploers e
+on e.d_id=d.id
+where e.name is null;
+
+select *from emploers e
+left join departments d
+on e.d_id=d.id
+where e.name like '%lo%';
+
+select *from emploers e
+right join departments d
+on e.d_id=d.id
+where e.name like '%lo%';
+
+create table teens(
+	id serial primary key,
+	name varchar(255),
+	gender varchar(255)
+);
+
+insert into teens(name, gender) values ('Оля', 'Ж');
+insert into teens(name, gender) values ('Коля', 'М');
+insert into teens(name, gender) values ('Аня', 'Ж');
+insert into teens(name, gender) values ('Ваня', 'М');
+
+select t1.name, t2.name
+from teens t1
+cross join teens t2
+where t1.gender != t2.gender;
+
+
