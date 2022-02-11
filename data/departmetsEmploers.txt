@@ -5,7 +5,7 @@ create table departments(
 create table emploers(
 	id serial primary key,
 	name varchar(255),
-	d_id int
+	d_id int references departments(id)
 );
 
 insert into departments(name) values ('One');
@@ -54,7 +54,7 @@ create table teens(
 	id serial primary key,
 	name varchar(255),
 	gender varchar(255)
-);
+)
 
 insert into teens(name, gender) values ('Оля', 'Ж');
 insert into teens(name, gender) values ('Коля', 'М');
