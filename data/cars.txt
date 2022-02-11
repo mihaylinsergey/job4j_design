@@ -51,17 +51,20 @@ on c.engine_id=e.id
 join transmission t
 on c.transmission_id=t.id;
 
-select *from body b
+select c.name, b.name as Body 
+from body b
 right join car c
-on b.id!=c.body_id
-where b.id is null;
+on b.id=c.body_id
+where c.body_id is null;
 
-select *from engine e
+select c.name, e.name as Engine 
+from engine e
 right join car c
-on e.id!=c.body_id
-where e.id is null;
+on e.id=c.engine_id
+where c.engine_id is null;
 
-select *from transmission t
+select c.name, t.name as Transmission 
+from transmission t
 right join car c
-on t.id!=c.body_id
-where t.id is null;
+on t.id=c.transmission_id
+where c.transmission_id is null;
