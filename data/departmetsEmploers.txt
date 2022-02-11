@@ -29,6 +29,10 @@ right join departments d
 on e.d_id=d.id;
 
 select *from emploers e
+full join departments d
+on e.d_id=d.id;
+
+select *from emploers e
 cross join departments d;
 
 select *from departments d
@@ -61,5 +65,6 @@ select t1.name, t2.name
 from teens t1
 cross join teens t2
 where t1.gender != t2.gender;
+
 
 
