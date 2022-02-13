@@ -6,7 +6,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 public class ConfigTest {
-
+/*
     @Test
     public void whenPairWithComment() {
         String path = "./data/app.properties";
@@ -22,6 +22,6 @@ public class ConfigTest {
         Config config = new Config(path);
         config.load();
         config.value("hibernate.connection.password");
-    }
+    }*/
 
 }
