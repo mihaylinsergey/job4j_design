@@ -22,17 +22,13 @@ public class SearchExam {
     private void handle() throws IOException {
         String searchType = argsName.get("t");
         if ("mask".equals(searchType)) {
-            if (argsName.get("n").contains("*")) {
-               Pattern pattern = Pattern.compile(argsName.get("n").replace("*", ""));
-               files = search(Paths.get(argsName.get("d")), x -> pattern
-                        .matcher(x.toFile().getName())
-                        .find());
-            } else if (argsName.get("n").contains("?")) {
-                Pattern pattern = Pattern.compile(argsName.get("n").replace("?", ""));
-                files = search(Paths.get(argsName.get("d")), x -> pattern
-                        .matcher(x.toFile().getName())
-                        .find());
-            }
+            Pattern pattern = Pattern.compile(argsName.get("n")
+                    .replace(".", "\\.")
+                    .replace("*", "(\\w*)")
+                    .replace("?", "(\\w)"));
+            files = search(Paths.get(argsName.get("d")), x -> pattern
+                    .matcher(x.toFile().getName())
+                    .find());
         } else if ("name".equals(searchType)) {
             files = search(Paths.get(argsName.get("d")), x -> x.toFile()
                     .getName().equals(argsName.get("n")));
@@ -76,7 +72,7 @@ public class SearchExam {
 
     public static void main(String[] args) throws IOException {
         System.out.println("Input some arguments for example: "
-               + "java -jar find.jar -d=c:/ -n=*.txt -t=mask -o=log.txt");
+                + "java -jar find.jar -d=c:/ -n=*.txt -t=mask -o=log.txt");
         SearchExam example = new SearchExam();
         example.validateArgs(args);
         example.handle();
