@@ -19,7 +19,7 @@ public class SearchExam {
     private ArgsName argsName;
     private List<Path> files = Collections.EMPTY_LIST;
 
-    private void handle() throws IOException {
+    private void handle() throws IOException, IllegalArgumentException {
         String searchType = argsName.get("t");
         if ("mask".equals(searchType)) {
             Pattern pattern = Pattern.compile(argsName.get("n")
@@ -38,7 +38,7 @@ public class SearchExam {
                     .matcher(x.toFile().getName())
                     .find());
         } else {
-            System.out.println("The argument \"t\" is not valid!");
+            throw new IllegalArgumentException("The argument \"t\" is not valid!");
         }
     }
 
