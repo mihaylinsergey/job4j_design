@@ -37,17 +37,19 @@ public class SearchExam {
             files = search(Paths.get(argsName.get("d")), x -> pattern
                     .matcher(x.toFile().getName())
                     .find());
+        } else {
+            System.out.println("The argument \"t\" is not valid!");
         }
     }
 
     private void validateArgs(String[] args) {
         argsName = ArgsName.of(args);
         if (argsName.size() != 4) {
-            throw new IllegalArgumentException("The number of arguments is not equal to 4");
+            throw new IllegalArgumentException("The number of arguments is not equal to 4!");
         }
         Path start = Paths.get(argsName.get("d"));
         if (!start.toFile().exists()) {
-            throw new IllegalArgumentException("The argument \"d\" is not valid");
+            throw new IllegalArgumentException("The argument \"d\" is not valid!");
         }
     }
 
