@@ -42,7 +42,7 @@ class NameLoadTest {
     }
 
     @Test
-    void WhenNamesArrayIsEmpty() {
+    void whenNamesArrayIsEmpty() {
         NameLoad nameLoad = new NameLoad();
         assertThatThrownBy(() -> nameLoad.parse(new String[]{}))
                 .isInstanceOf(IllegalArgumentException.class)
